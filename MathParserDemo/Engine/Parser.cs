@@ -61,7 +61,7 @@ namespace MathParserDemo.Engine
         /// </summary>
         /// <param name="line">The line</param>
         /// <param name="removeCount">How many items to remove from start of line</param>
-        /// <returns></returns>
+        /// <returns>Value of parsed line</returns>
         private static double GetValue(List<string> line, int removeCount)
         {
             // remove the first x items
@@ -118,8 +118,6 @@ namespace MathParserDemo.Engine
                     }
                 }
             }
-
-            double parsed = double.Parse(line[0]);
 
             return double.Parse(line[0]);
         }
