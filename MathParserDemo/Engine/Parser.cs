@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using MathParserDemo.Controllers;
 
 namespace MathParserDemo.Engine
@@ -17,6 +18,7 @@ namespace MathParserDemo.Engine
         /// <returns>If program is active</returns>
         public static bool Parse(string input)
         {
+            input = TranslateCulture(input);
             List<string> lexedValues = Lexer.Split(input);
 
             if (lexedValues.Count <= 0) return true;
@@ -60,7 +62,7 @@ namespace MathParserDemo.Engine
         /// <param name="line">The line</param>
         /// <param name="removeCount">How many items to remove from start of line</param>
         /// <returns></returns>
-        public static int GetValue(List<string> line, int removeCount)
+        private static double GetValue(List<string> line, int removeCount)
         {
             // remove the first x items
             line.RemoveRange(0, removeCount);
@@ -68,7 +70,6 @@ namespace MathParserDemo.Engine
             // loop over operators
             foreach (char c in Globals.Operators)
             {
-
                 // loop continuously until count is 1
                 while (line.Count > 1)
                 {
@@ -83,8 +84,8 @@ namespace MathParserDemo.Engine
                         if (item == c.ToString())
                         {
                             string newItem = "";
-                            int prev = Variables.Exists(line[i - 1]) ? Variables.GetValue(line[i - 1]) : int.Parse(line[i - 1]);
-                            int next = Variables.Exists(line[i + 1]) ? Variables.GetValue(line[i + 1]) : int.Parse(line[i + 1]);
+                            double prev = Variables.Exists(line[i - 1]) ? Variables.GetValue(line[i - 1]) : double.Parse(line[i - 1]);
+                            double next = Variables.Exists(line[i + 1]) ? Variables.GetValue(line[i + 1]) : double.Parse(line[i + 1]);
 
                             // do the math thing
                             switch (c)
@@ -118,7 +119,32 @@ namespace MathParserDemo.Engine
                 }
             }
 
-            return int.Parse(line[0]);
+            double parsed = double.Parse(line[0]);
+
+            return double.Parse(line[0]);
+        }
+
+        /// <summary>
+        /// Translate decimal separators between cultures.
+        /// At least commas and dots.
+        /// </summary>
+        /// <param name="s">String to translate</param>
+        /// <returns>Translated string</returns>
+        private static string TranslateCulture(string s)
+        {
+            char currentCultureDecimalPoint = 
+                char.Parse(Thread.CurrentThread.CurrentCulture.NumberFormat.CurrencyDecimalSeparator);
+
+            if (s.Contains('.') && currentCultureDecimalPoint != '.')
+            {
+                s = s.Replace('.', currentCultureDecimalPoint);
+            }
+            else if (s.Contains(',') && currentCultureDecimalPoint != ',')
+            {
+                s = s.Replace(',', currentCultureDecimalPoint);
+            }
+
+            return s;
         }
     }
 }

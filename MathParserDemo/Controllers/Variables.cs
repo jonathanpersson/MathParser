@@ -16,7 +16,7 @@ namespace MathParserDemo.Controllers
         /// </summary>
         /// <param name="identifier">Variable identifier</param>
         /// <param name="value">Variable value</param>
-        public static void Define(string identifier, int value)
+        public static void Define(string identifier, double value)
         {
             if (!Exists(identifier))
             {
@@ -41,7 +41,7 @@ namespace MathParserDemo.Controllers
         /// </summary>
         /// <param name="identifier">Variable to assign to</param>
         /// <param name="value">New value</param>
-        public static void Assign(string identifier, int value)
+        public static void Assign(string identifier, double value)
         {
             if (Exists(identifier)) Memory[identifier].Value = value;
             else throw new Exception("Cannot set undefined variable.");
@@ -62,7 +62,7 @@ namespace MathParserDemo.Controllers
         /// </summary>
         /// <param name="identifier">Variable to get</param>
         /// <returns>Variable value, if it exsits</returns>
-        public static int GetValue(string identifier)
+        public static double GetValue(string identifier)
         {
             if (Exists(identifier)) return Memory[identifier].Value;
             else throw new Exception("Cannot get value of a variable that is not defined.");

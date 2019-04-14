@@ -17,7 +17,7 @@ namespace MathParserDemo.Models
         /// <summary>
         /// Variable value
         /// </summary>
-        private int _value;
+        private double _value;
 
         /// <summary>
         /// Variable identifier
@@ -27,7 +27,7 @@ namespace MathParserDemo.Models
         /// <summary>
         /// Variable value
         /// </summary>
-        public int Value
+        public double Value
         {
             get { return _value; }
             set { _value = value; }
@@ -38,7 +38,7 @@ namespace MathParserDemo.Models
         /// </summary>
         /// <param name="identifier">Variable identifier</param>
         /// <param name="value">Variable value</param>
-        public Variable(string identifier, int value)
+        public Variable(string identifier, double value)
         {
             _identifier = identifier;
             _value = value;

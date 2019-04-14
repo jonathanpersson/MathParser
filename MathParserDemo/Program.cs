@@ -42,6 +42,8 @@ namespace MathParserDemo
                     isRunning = Engine.Parser.Parse(input);
                 }
             }
+
+            Console.ResetColor();
         }
     }
 }
