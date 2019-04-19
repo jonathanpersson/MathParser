@@ -9,7 +9,7 @@ namespace MathParserDemo.Controllers
         /// <summary>
         /// Currently defined variables
         /// </summary>
-        private static Dictionary<string, Models.Variable> Memory = new Dictionary<string, Models.Variable>();
+        private static Dictionary<string, Variable> Memory = new Dictionary<string, Variable>();
 
         /// <summary>
         /// Define a new variable
@@ -20,8 +20,12 @@ namespace MathParserDemo.Controllers
         {
             if (!Exists(identifier))
             {
-                Variable newVariable = new Variable(identifier, value);
-                Memory.Add(identifier, newVariable);
+                if (ValidateIdentifier(identifier))
+                {
+                    Variable newVariable = new Variable(identifier, value);
+                    Memory.Add(identifier, newVariable);
+                }
+                else throw new Exception($"\"{identifier}\" is not a valid variable name. Identifier cannot start with a number.");
             }
             else throw new Exception("Cannot redefine variable that already exists.");
         }
@@ -65,7 +69,16 @@ namespace MathParserDemo.Controllers
         public static double GetValue(string identifier)
         {
             if (Exists(identifier)) return Memory[identifier].Value;
-            else throw new Exception("Cannot get value of a variable that is not defined.");
+            throw new Exception("Cannot get value of a variable that is not defined.");
+        }
+
+        /// <summary>
+        /// Validate identifier
+        /// </summary>
+        /// <returns>True if identifier is valid</returns>
+        public static bool ValidateIdentifier(string identifier)
+        {
+            return !int.TryParse(identifier[0].ToString(), out int j);
         }
     }
 }

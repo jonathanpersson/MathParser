@@ -13,6 +13,7 @@ namespace MathParserDemo
             Console.WriteLine("This program parses simple mathematical expressions.");
             Console.WriteLine("Program supports the following commands:");
             Console.WriteLine("Define a variable: let x = 3");
+            Console.WriteLine("Remove a variable: rem x");
             Console.WriteLine("Calculate an expression: calc 2 + 4 - x");
             Console.WriteLine("Set a variable: set x = 6");
             Console.WriteLine("Print value of a variable: print x");

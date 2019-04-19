@@ -30,16 +30,19 @@ namespace MathParserDemo.Engine
                 switch (lexedValues[0].ToLower())
                 {
                     case "let":
-                        Controllers.Variables.Define(lexedValues[1], GetValue(lexedValues, 3));
+                        Variables.Define(lexedValues[1], GetValue(lexedValues, 3));
                         break;
                     case "set":
-                        Controllers.Variables.Assign(lexedValues[1], GetValue(lexedValues, 3));
+                        Variables.Assign(lexedValues[1], GetValue(lexedValues, 3));
                         break;
                     case "calc":
                         Console.WriteLine(GetValue(lexedValues, 1));
                         break;
                     case "print":
                         Console.WriteLine(Controllers.Variables.GetValue(lexedValues[1]));
+                        break;
+                    case "rem":
+                        Variables.Destroy(lexedValues[1]);
                         break;
                     case "exit":
                         return false;
