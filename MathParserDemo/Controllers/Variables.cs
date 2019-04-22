@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using MathParserDemo.Engine;
 using MathParserDemo.Models;
 
 namespace MathParserDemo.Controllers
@@ -78,7 +79,7 @@ namespace MathParserDemo.Controllers
         /// <returns>True if identifier is valid</returns>
         public static bool ValidateIdentifier(string identifier)
         {
-            return !int.TryParse(identifier[0].ToString(), out int j);
+            return !int.TryParse(identifier[0].ToString(), out int j) && !Globals.Operators.Contains(identifier[0]);
         }
     }
 }
